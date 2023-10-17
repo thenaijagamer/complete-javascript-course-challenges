@@ -16,12 +16,19 @@ m tall.
 m tall.
 */
 
-let marksBMI = 78 / 1.69 ** 2;
-let johnsBMI = 92 / 1.95 ** 2;
-let markHigherBMI = marksBMI > johnsBMI;
-console.log(markHigherBMI);
+// Data 1
+const markWeight = 78;
+const markHeight = 1.69;
+const johnWeight = 92;
+const johnHeight = 1.95;
 
-marksBMI = 95 / 1.88 ** 2;
-johnsBMI = 85 / 1.76 ** 2;
-markHigherBMI = marksBMI > johnsBMI;
+// Data 2
+// const markWeight = 95;
+// const markHeight = 1.88;
+// const johnWeight = 85;
+// const johnHeight = 1.76;
+
+let marksBMI = markWeight / markHeight ** 2;
+let johnsBMI = johnWeight / johnHeight ** 2;
+let markHigherBMI = marksBMI > johnsBMI;
 console.log(markHigherBMI);
