@@ -30,17 +30,17 @@ const john = {
   mass: 92,
   height: 1.95,
   calcBMI: function () {
-    this.BMI = this.mass / this.height ** 2;
+    this.BMI = this.mass / this.height ** 2; // create a new object
     return this.BMI;
   },
 };
 
-let markHigherBMI = mark.calcBMI() > john.calcBMI();
+let markHigherBMI = mark.calcBMI() > john.calcBMI(); // call calcBMI once to create the property BMI
 
 if (markHigherBMI) {
   console.log(
     `Mark's BMI (${mark.BMI}) is higher than John's BMI (${john.BMI})!`
-  );
+  ); // use the BMI property directly instead of calling calcBMI again
 } else {
   console.log(
     `John's BMI (${john.BMI}) is higher than Mark's BMI (${mark.BMI})!`
