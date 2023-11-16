@@ -18,3 +18,8 @@ showModal.forEach(function (e) {
 });
 closeModal.addEventListener('click', hideModal);
 overlay.addEventListener('click', hideModal);
+document.addEventListener('keydown', function (e) {
+  if (e.key === 'Escape') {
+    hideModal();
+  }
+});
