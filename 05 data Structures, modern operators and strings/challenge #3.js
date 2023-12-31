@@ -30,3 +30,31 @@ const gameEvents = new Map([
   [80, "⚽ GOAL"],
   [92, "🟨 Yellow card"],
 ]);
+
+// 1
+const events = new Set([...gameEvents.values()]);
+console.log(events);
+
+// 2
+gameEvents.delete(64);
+console.log(gameEvents);
+
+// 3
+
+console.log(
+  `An event happened, on average, every ${90 / gameEvents.size} minutes`
+);
+
+// 4
+for (const [eventTime, event] of [...gameEvents]) {
+  console.log(
+    `[${eventTime <= 45 ? "FIRST HALF" : "SECOND HALF"}] ${eventTime}: ${event}`
+  );
+}
+// for (let i = 0; i < [...gameEvents].length; i++) {
+//   const eventTime = [...gameEvents.keys()][i];
+//   const event = [...gameEvents.values()][i];
+// console.log(
+//   `[${eventTime <= 45 ? "FIRST HALF" : "SECOND HALF"}] ${eventTime}: ${event}`
+// );
+// }
