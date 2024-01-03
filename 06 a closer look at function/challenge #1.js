@@ -29,12 +29,14 @@ string like "Poll results are 13, 2, 4, 1".
 5. Bonus: Use the 'displayResults' method to display the 2 arrays in the test 
 data. Use both the 'array' and the 'string' option. Do not put the arrays in the poll 
 object! So what should the this keyword look like in this situation?
-The Complete JavaScript Course 21
 Test data for bonus:
 § Data 1: [5, 2, 3]
 § Data 2: [1, 5, 3, 9, 6, 1]
 Hints: Use many of the tools you learned about in this and the last section �
 GOOD LUCK �*/
+
+document.body.append(document.createElement("button"));
+document.querySelector("button").textContent = "Add poll";
 
 const poll = {
   question: "What is your favourite programming language?",
@@ -42,3 +44,33 @@ const poll = {
   // This generates [0, 0, 0, 0]. More in the next section!
   answers: new Array(4).fill(0),
 };
+
+poll.registerNewAnswer = function () {
+  const ask = +prompt(`What is your favourite programming language?
+0: JavaScript
+1: Python
+2: Rust
+3: C++`);
+  // console.log(this);
+  if (ask >= 0 && ask < 4) {
+    this.answers[ask]++;
+    // console.log(this.answers);
+  } else {
+    console.log("Not the number we're looking for");
+  }
+  this.displayResults(this.answers.join(", "));
+  this.displayResults();
+};
+
+displayResults(poll[(5, 2, 3)]);
+
+// registerNewAnswer.call(poll);
+poll.displayResults = function (type = this.answers) {
+  // const answer = type.join(", ");
+  if (typeof type === "string") console.log("poll result are " + type);
+  else console.log(type);
+};
+
+const disp = document
+  .querySelector("button")
+  .addEventListener("click", poll.registerNewAnswer.bind(poll));
