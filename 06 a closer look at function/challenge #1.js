@@ -41,36 +41,36 @@ document.querySelector("button").textContent = "Add poll";
 const poll = {
   question: "What is your favourite programming language?",
   options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
-  // This generates [0, 0, 0, 0]. More in the next section!
   answers: new Array(4).fill(0),
 };
 
+// 1
 poll.registerNewAnswer = function () {
-  const ask = +prompt(`What is your favourite programming language?
-0: JavaScript
-1: Python
-2: Rust
-3: C++`);
-  // console.log(this);
-  if (ask >= 0 && ask < 4) {
-    this.answers[ask]++;
-    // console.log(this.answers);
-  } else {
-    console.log("Not the number we're looking for");
-  }
-  this.displayResults(this.answers.join(", "));
+  // 1.1
+  const answer = +prompt(`${this.question}
+${this.options.join("\n")}
+(Write option number)`);
+  // 1.2
+  answer >= 0 && answer < 4 && this.answers[answer]++;
+  // 4
+  this.displayResults("string");
   this.displayResults();
 };
 
-displayResults(poll[(5, 2, 3)]);
-
-// registerNewAnswer.call(poll);
-poll.displayResults = function (type = this.answers) {
-  // const answer = type.join(", ");
-  if (typeof type === "string") console.log("poll result are " + type);
-  else console.log(type);
-};
-
-const disp = document
+// 2
+document
   .querySelector("button")
   .addEventListener("click", poll.registerNewAnswer.bind(poll));
+
+// 3
+poll.displayResults = function (type = "array") {
+  if (type === "string")
+    console.log("poll result are " + this.answers.join(", "));
+  else if (type === "array") console.log(this.answers);
+};
+
+// 5
+poll.displayResults.call({ answers: [5, 2, 3] }, "string");
+poll.displayResults.call({ answers: [5, 2, 3] });
+poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] }, "string");
+poll.displayResults.call({ answers: [1, 5, 3, 9, 6, 1] });
