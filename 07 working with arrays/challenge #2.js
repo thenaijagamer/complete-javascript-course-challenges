@@ -19,19 +19,17 @@ Test data:
  */
 
 const calcAverageHumanAge = function (ages) {
-  const averageAge = ages.map((dogAge) => {
-    if (dogAge <= 2) {
-      const humanAge = 2 * dogAge;
-      return humanAge;
-    } else {
-      const humanAge = 16 + dogAge * 4;
-      return humanAge;
-    }
-  });
-  // .filter((age) => age >= 18)
-  // .reduce((acc, age) => acc + age / 2, 0);
-  return averageAge;
+  // 1 $ 2
+  const adultDogAge = ages
+    .map((dogAge) => (dogAge <= 2 ? 2 * dogAge : 16 + dogAge * 4))
+    .filter((age) => age >= 18);
+  // 3
+  const averageDogAge =
+    adultDogAge.reduce((acc, age) => acc + age, 0) / adultDogAge.length;
+  return averageDogAge;
 };
+
+// 4
 console.log(calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]));
 console.log("____________________");
 console.log(calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]));
