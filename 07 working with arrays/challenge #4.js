@@ -53,13 +53,14 @@ const dogs = [
   { weight: 32, curFood: 340, owners: ["Michael"] },
 ];
 
+console.log("1_________________________");
 // 1
 dogs.forEach((dog) => {
   dog.recommendedFood = dog.weight ** 0.75 * 28;
 });
 console.log(dogs);
 
-console.log("_________________________");
+console.log("\n2_________________________");
 // 2
 const sarahsDog = dogs.find((dog) =>
   dog.owners.find((owner) => owner === "Sarah")
@@ -79,33 +80,28 @@ console.log(
     : "Eating normal"
 );
 
-console.log("_________________________");
+console.log("\n3_________________________");
 // 3
-let ownersEatTooMuch = [];
-let ownersEatTooLittle = [];
-dogs.forEach((dog) => {
-  if (dog.curFood > dog.recommendedFood * 1.1)
-    ownersEatTooMuch.push(dog.owners);
-});
-const ownersEatTooMuchFlat = ownersEatTooMuch.flat();
-dogs.forEach((dog) => {
-  if (dog.curFood < dog.recommendedFood * 0.9)
-    ownersEatTooLittle.push(dog.owners);
-});
-const ownersEatTooLittleFlat = ownersEatTooLittle.flat();
-console.log("ownersEatTooMuch: ", ownersEatTooMuchFlat);
-console.log("ownersEatTooLittle: ", ownersEatTooLittleFlat);
+const ownersEatTooMuch = dogs
+  .filter((dog) => dog.curFood > dog.recommendedFood * 1.1)
+  .flatMap((dog) => dog.owners);
+const ownersEatTooLittle = dogs
+  .filter((dog) => dog.curFood < dog.recommendedFood * 0.9)
+  .flatMap((dog) => dog.owners);
 
-console.log("_________________________");
+console.log("ownersEatTooMuch: ", ownersEatTooMuch);
+console.log("ownersEatTooLittle: ", ownersEatTooLittle);
+
+console.log("\n4_________________________");
 // 4
-console.log(ownersEatTooMuchFlat.join(" and ") + "'s dog eat too much");
-console.log(ownersEatTooLittleFlat.join(" and ") + "'s dog eat too little");
+console.log(ownersEatTooMuch.join(" and ") + "'s dog eat too much");
+console.log(ownersEatTooLittle.join(" and ") + "'s dog eat too little");
 
-console.log("_________________________");
+console.log("\n5_________________________");
 // 5
 console.log(dogs.some((dog) => dog.curFood == dog.recommendedFood));
 
-console.log("_________________________");
+console.log("\n6_________________________");
 // 6
 console.log(
   dogs.some(
@@ -115,7 +111,7 @@ console.log(
   )
 );
 
-console.log("_________________________");
+console.log("\n7_________________________");
 // 7
 const dogsOkay = dogs.filter(
   (dog) =>
@@ -124,3 +120,10 @@ const dogsOkay = dogs.filter(
 );
 
 console.log(dogsOkay);
+
+console.log("\n8_________________________");
+// 8
+const dogsSorted = dogs
+  .slice()
+  .sort((a, b) => a.recommendedFood - b.recommendedFood);
+console.log(dogsSorted);
