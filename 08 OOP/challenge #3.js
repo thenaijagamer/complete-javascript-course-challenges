@@ -13,3 +13,39 @@ km/h, with a charge of 22%'
 you 'accelerate'! Hint: Review the definiton of polymorphism �
 Test data:
 § Data car 1: 'Tesla' going at 120 km/h, with a charge of 23%*/
+
+// 1
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+
+// 2
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(
+    "Accelerate:",
+    this.make + " now going at " + this.speed + "km/h"
+  );
+};
+
+// 3
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log("Brake:", this.make + " now going at " + this.speed + "km/h");
+};
+
+//4
+const car1 = new Car("BMW", 120);
+const car2 = new Car("Mercedes", 95);
+console.log(car1);
+car1.accelerate();
+car1.brake();
+car1.accelerate();
+car1.brake();
+console.log("-----------------------------------");
+console.log(car2);
+car2.accelerate();
+car2.brake();
+car2.accelerate();
+car2.brake();
