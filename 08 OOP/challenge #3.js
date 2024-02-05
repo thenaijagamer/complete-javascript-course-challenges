@@ -14,28 +14,21 @@ you 'accelerate'! Hint: Review the definiton of polymorphism �
 Test data:
 § Data car 1: 'Tesla' going at 120 km/h, with a charge of 23%*/
 
-// 1
 const Car = function (make, speed) {
   this.make = make;
   this.speed = speed;
 };
 
-// 2
 Car.prototype.accelerate = function () {
   this.speed += 10;
-  console.log(
-    "Accelerate:",
-    this.make + " now going at " + this.speed + "km/h"
-  );
+  console.log("Accelerate:", this.make + " going at " + this.speed + "km/h");
 };
 
-// 3
 Car.prototype.brake = function () {
   this.speed -= 5;
-  console.log("Brake:", this.make + " now going at " + this.speed + "km/h");
+  console.log("Brake:", this.make + " going at " + this.speed + "km/h");
 };
 
-//4
 const car1 = new Car("BMW", 120);
 const car2 = new Car("Mercedes", 95);
 console.log(car1);
@@ -49,3 +42,41 @@ car2.accelerate();
 car2.brake();
 car2.accelerate();
 car2.brake();
+
+// 1
+const EV = function (make, speed, charge) {
+  Car.apply(this, [make, speed]);
+  this.charge = charge;
+};
+EV.prototype = Object.create(Car.prototype); // link prototype
+EV.prototype.constructor = EV; // Default changed from Car
+
+// 2
+EV.prototype.chargeBattery = function (chargeTo) {
+  this.charge = chargeTo;
+};
+
+// 3
+EV.prototype.accelerate = function () {
+  this.speed += 10;
+  this.charge -= 1;
+  console.log(
+    "Accelerate:",
+    this.make +
+      " going at " +
+      this.speed +
+      "km/h," +
+      " with a charge of " +
+      this.charge
+  );
+};
+
+//4
+const electCar = new EV("Tesla", 120, 23);
+console.log("-----------------------------------");
+console.log(electCar);
+electCar.accelerate();
+electCar.brake();
+electCar.chargeBattery(90);
+electCar.accelerate();
+electCar.brake();
