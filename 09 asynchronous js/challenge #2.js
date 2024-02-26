@@ -27,3 +27,45 @@ need a global variable for that �)
 Test data: Images in the img folder. Test the error handler by passing a wrong 
 image path. Set the network speed to “Fast 3G” in the dev tools Network tab, 
 otherwise images load too fast */
+
+const wait = function (second) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, second * 1000);
+  });
+};
+
+const createImage = function (imgPath) {
+  return new Promise(function (resolve, reject) {
+    const img = document.createElement("img");
+    img.src = imgPath;
+    img.addEventListener("load", function () {
+      resolve(img);
+    });
+    img.addEventListener("error", function () {
+      reject("Image failed to load");
+    });
+  });
+};
+let newImg;
+createImage("./img/img-1.jpg")
+  .then(function (img) {
+    document.querySelector(".images").appendChild(img);
+    newImg = img;
+    return wait(2);
+  })
+  .then(function () {
+    newImg.style.display = "none";
+    return createImage("./img/img-2.jpg");
+  })
+  .then(function (img) {
+    document.querySelector(".images").appendChild(img);
+    newImg = img;
+    return wait(2);
+  })
+  .then(function () {
+    newImg.style.display = "none";
+    // return createImage("./img/img-3.jpg");
+  })
+  .catch(function (err) {
+    console.log(err);
+  });
