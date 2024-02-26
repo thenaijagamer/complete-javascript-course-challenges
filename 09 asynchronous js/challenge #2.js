@@ -28,16 +28,14 @@ Test data: Images in the img folder. Test the error handler by passing a wrong
 image path. Set the network speed to “Fast 3G” in the dev tools Network tab, 
 otherwise images load too fast */
 
-const wait = function (second) {
-  return new Promise(function (resolve) {
-    setTimeout(resolve, second * 1000);
-  });
-};
+let newImg; // 6
 
+// 1
 const createImage = function (imgPath) {
   return new Promise(function (resolve, reject) {
     const img = document.createElement("img");
     img.src = imgPath;
+    // 2
     img.addEventListener("load", function () {
       resolve(img);
     });
@@ -46,25 +44,29 @@ const createImage = function (imgPath) {
     });
   });
 };
-let newImg;
-createImage("./img/img-1.jpg")
-  .then(function (img) {
+
+const wait = function (second) {
+  return new Promise(function (resolve) {
+    setTimeout(resolve, second * 1000);
+  });
+};
+
+const loadImage = function (image) {
+  // 4
+  return createImage(image).then(function (img) {
     document.querySelector(".images").appendChild(img);
     newImg = img;
-    return wait(2);
+    return wait(2); // 5
+  });
+};
+
+loadImage("./img/img-1.jpg")
+  .then(function () {
+    newImg.style.display = "none"; // 6
+    return loadImage("./img/img-2.jpg"); // 7
   })
   .then(function () {
-    newImg.style.display = "none";
-    return createImage("./img/img-2.jpg");
-  })
-  .then(function (img) {
-    document.querySelector(".images").appendChild(img);
-    newImg = img;
-    return wait(2);
-  })
-  .then(function () {
-    newImg.style.display = "none";
-    // return createImage("./img/img-3.jpg");
+    newImg.style.display = "none"; // 7
   })
   .catch(function (err) {
     console.log(err);
