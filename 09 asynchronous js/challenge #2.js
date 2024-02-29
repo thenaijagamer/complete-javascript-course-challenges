@@ -38,6 +38,7 @@ const createImage = function (imgPath) {
     // 2
     img.addEventListener("load", function () {
       resolve(img);
+      document.querySelector(".images").appendChild(img);
     });
     img.addEventListener("error", function () {
       reject("Image failed to load");
@@ -51,23 +52,22 @@ const wait = function (second) {
   });
 };
 
-const loadImage = function (image) {
-  // 4
-  return createImage(image).then(function (img) {
-    document.querySelector(".images").appendChild(img);
-    newImg = img;
-    return wait(2); // 5
-  });
-};
+// const loadImage = function (image) {
+//   // 4
+//   return createImage(image).then(function (img) {
+//     newImg = img;
+//     return wait(2); // 5
+//   });
+// };
 
-loadImage("./img/img-1.jpg")
-  .then(function () {
-    newImg.style.display = "none"; // 6
-    return loadImage("./img/img-2.jpg"); // 7
-  })
-  .then(function () {
-    newImg.style.display = "none"; // 7
-  })
-  .catch(function (err) {
-    console.log(err);
-  });
+// loadImage("./img/img-1.jpg")
+//   .then(function () {
+//     newImg.style.display = "none"; // 6
+//     return loadImage("./img/img-2.jpg"); // 7
+//   })
+//   .then(function () {
+//     newImg.style.display = "none"; // 7
+//   })
+//   .catch(function (err) {
+//     console.log(err);
+//   });

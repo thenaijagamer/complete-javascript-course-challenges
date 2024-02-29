@@ -20,6 +20,25 @@ PART 2
 Test data Part 2: ['img/img-1.jpg', 'img/img-2.jpg', 'img/img-3.jpg']. To test, turn off the 'loadNPause' function
  */
 
+// part 1
+const loadNPause1 = async function () {
+  try {
+    const img1 = await createImage("./img/img-1.jpg");
+    document.querySelector(".images").appendChild(img1);
+    newImg = img1;
+    await wait(2);
+    newImg.style.display = "none";
+    const img2 = await createImage("./img/img-2.jpg");
+    document.querySelector(".images").appendChild(img2);
+    newImg = img2;
+    await wait(2);
+    newImg.style.display = "none";
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Alternative method
 const loadNPause = async function (image) {
   try {
     const img = await createImage(image);
@@ -33,7 +52,7 @@ const loadNPause = async function (image) {
 
 const consumeLoadNPause = async function () {
   try {
-    const img1 = await loadNPause("./img/img-11.jpg");
+    const img1 = await loadNPause("./img/img-1.jpg");
     newImg.style.display = "none";
     const img2 = await loadNPause("./img/img-2.jpg");
     newImg.style.display = "none";
@@ -42,4 +61,16 @@ const consumeLoadNPause = async function () {
   }
 };
 
-consumeLoadNPause();
+// consumeLoadNPause();
+// loadNPause1();
+
+// Part 2
+const loadAll = async function (imgArr) {
+  const imgs = imgArr.map(async (img) => await createImage(img));
+  const imgEl = await Promise.all(imgs);
+  console.log(imgEl);
+  imgEl.forEach((img) => {
+    img.classList.add("parallel");
+  });
+};
+loadAll(["img/img-1.jpg", "img/img-2.jpg", "img/img-3.jpg"]);
